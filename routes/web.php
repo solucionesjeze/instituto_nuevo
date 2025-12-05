@@ -1,11 +1,14 @@
 <?php
-
+use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
+
+
+Route::view("/about", "about");
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,4 +20,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource("alumnos", AlumnoController::class);
+Route::resource("proyectos", ProyectoController::class);
 require __DIR__.'/auth.php';

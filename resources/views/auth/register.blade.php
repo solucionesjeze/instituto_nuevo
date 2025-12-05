@@ -1,4 +1,5 @@
-<x-guest-layout>
+<x-layouts.layout>
+    <div class="bg-gray-200 flex flex-row justify-center items-center text-gray-600">
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

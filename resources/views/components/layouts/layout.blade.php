@@ -8,20 +8,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/app.css">
     @vite(["resources/css/app.css","resources/js/app.js"])
+
 </head>
 <body>
     <x-layouts.header/>
-        <x-layouts.nav/>
-
-<nav class="bg-nav h-nav">
-    estoy en nav aquí boton
-</nav>
-<main class="bg-main h-main" >
-    {{$slot}}
-</main>
-<footer class="h-footer bg-footer">
-    estoy en footer
-</footer>
-
+    <x-layouts.nav/>
+    <x-layouts.main>
+    {{ $slot }}
+    </x-layouts.main>
+    <x-layouts.footer/>
 </body>
 </html>
