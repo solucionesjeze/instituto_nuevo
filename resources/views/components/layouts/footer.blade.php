@@ -1,4 +1,2 @@
-<footer class="h-footer bg-footer">
-    estoy en footer
+<footer class="fixed bottom-0 left-0 w-full h-footer bg-footer">
 </footer>
-

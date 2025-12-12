@@ -18,8 +18,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-      //     $this::call([AlumnoSeeder::class]);
-      $this->call([AlumnoSeeder::class]);
+      $user = User::create([
+        "name" => "admin",
+        "email" => "a@a.com",
+        "password" => bcrypt("12345678")
+      ]);
 
+      //$this::call([AlumnoSeeder::class]);
+      $this->call([
+        AlumnoSeeder::class,
+        RolesSeeder::class,
+      ]);
+
+      $user ->assignRole("admin");
     }
 }

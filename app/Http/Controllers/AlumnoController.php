@@ -14,12 +14,10 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        //select * from alumnos
-
-        $alumnos = Alumno::all();
+        //select * from 
+        $alumnos = Alumno::paginate(5);
         $campos = Schema::getColumnListing('alumnos');
         return view("alumnos.listado", compact("alumnos", "campos"));
-        
     }
 
     /**
@@ -35,7 +33,9 @@ class AlumnoController extends Controller
      */
     public function store(StoreAlumnoRequest $request)
     {
-        //
+        $datos_alumnos = request()->input();
+        Alumno::create($datos_alumnos);
+        return redirect()->route('alumnos.index');
     }
 
     /**
@@ -51,7 +51,7 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        //
+      return view("alumnos.edit", compact("alumno"));
     }
 
     /**
@@ -68,8 +68,12 @@ class AlumnoController extends Controller
     public function destroy(Alumno $alumno)
     {
         $alumno -> delete();
-        $alumnos = Alumno::all();
+        return redirect()->route('alumnos.index');
+
+
+        
+      /*  $alumnos = Alumno::all();
         $campos = Schema::getColumnListing('alumnos');
-        return view("alumnos.listado", compact("alumnos", "campos"));
+        return view("alumnos.listado", compact("alumnos", "campos"));*/
     }
 }

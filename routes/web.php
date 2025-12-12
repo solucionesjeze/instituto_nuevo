@@ -7,7 +7,6 @@ Route::get('/', function () {
     return view('main');
 });
 
-
 Route::view("/about", "about");
 
 Route::get('/dashboard', function () {
@@ -20,6 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource("alumnos", AlumnoController::class);
-Route::resource("proyectos", ProyectoController::class);
 require __DIR__.'/auth.php';
+
+//estas dos puede que se eliminen 
+Route::resource("alumnos", AlumnoController::class) ->middleware('auth');
+Route::get('/alumnos/create', [AlumnoController::class, 'create'])->name('alumnos.create');
+Route::post('/alumnos', [AlumnoController::class, 'store'])->name('alumnos.store');
+Route::resource("proyectos", ProyectoController::class);

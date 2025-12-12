@@ -18,9 +18,18 @@
         </a>
         @endguest
         @auth
-        <span class="text-l -text blue-800">{{ Auth::user()->name }}</span>
+        <span class="text-xl text-blue-900">{{ auth()->user()->name }}</span>
+        <form action="logout" method="POST">
+            @csrf
+            <input class="btn btn-secondary" type="submit" name="logout">
+        </form>
+        @role("admin")
+        <a href="">
+            <button type="submit" class="btn btn-primary">
+                Administrar
+            </button>
+        </a>
+        @endrole
         @endauth
     </div>
-
-
 </header>

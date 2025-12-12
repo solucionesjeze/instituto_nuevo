@@ -1,5 +1,5 @@
 <x-layouts.layout>
-  <button class="btn btn-primary"><a href="route{{('alumnos.create')}}" class="btn btn-primary">Crear alumno</a></button>
+  <button class="btn btn-primary"><a href="{{route('alumnos.create')}}" class="btn btn-primary">Crear alumno</a></button>
   <div class="overflow-x-auto w-full min-h-screen p-6">
     <table class="table table-xs table-pin-rows table-pin-cols w-full">
       <thead>
@@ -49,5 +49,6 @@
            event.target.closest('form').submit();
         }
     </script>
+    {{$alumnos->links() }}
   </div>
 </x-layouts.layout>
