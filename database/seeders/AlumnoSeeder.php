@@ -13,7 +13,7 @@ class AlumnoSeeder extends Seeder
     public function run(): void
     {
        Alumno::factory()
-        ->count(50)
+        ->count(500)
         ->create();
     }
 }

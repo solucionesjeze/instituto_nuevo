@@ -1,4 +1,5 @@
 <x-layouts.layout>
+    @auth
 <div class="flex justify-center items-center min-h-[70vh] bg-gray-300 py-10">
     <form action="{{ route('alumnos.store') }}" method="POST" class = "flex flex-col gap-4"
           class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl border border-gray-200">
@@ -59,5 +60,5 @@
     </form>
 
 </div>
-
+    @endauth
 </x-layouts.layout>

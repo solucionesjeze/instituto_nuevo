@@ -1,54 +1,73 @@
 <x-layouts.layout>
-  <button class="btn btn-primary"><a href="{{route('alumnos.create')}}" class="btn btn-primary">Crear alumno</a></button>
+      @auth
   <div class="overflow-x-auto w-full min-h-screen p-6">
-    <table class="table table-xs table-pin-rows table-pin-cols w-full">
-      <thead>
-        <tr>
-          @foreach ($campos as $campo)
-              <th class="p-3">{{$campo}}</th>  
-          @endforeach
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($alumnos as $alumno)
-        <tr>
-          <td>{{$alumno->id}}</td>
-          <td>{{$alumno->nombre}}</td>
-          <td>{{$alumno->apellido}}</td>
-          <td>{{$alumno->email}}</td>
-          <td>{{$alumno->fecha_nacimiento}}</td>
-          <td>{{$alumno->created_at}}</td>
-          <td>{{$alumno->updated_at}}</td>
+        <button type="submit" class="btn btn-primary">
+          <a href="{{route('alumnos.create')}}">Crear alumno</a>
+        </button>
+        @role ("alumno")
+  <table class="table table-xs table-pin-rows table-pin-cols w-full">
+    <thead> 
+      <tr>
+        @foreach ($campos as $campo)
+          <th>{{$campo}}</th> 
+        @endforeach
+      </tr>
+    </thead>
+    <tbody>
+    @foreach ($alumnos as $alumno)
+      <tr>
+        <td>{{$alumno->id}}</td>
+        <td>{{$alumno->nombre}}</td>
+        <td>{{$alumno->apellido}}</td>
+        <td>{{$alumno->email}}</td>
+        <td>{{$alumno->fecha_nacimiento}}</td>
+        <td>{{$alumno->created_at}}</td>
+        <td>{{$alumno->updated_at}}</td>
         <td>
-        <form action="/alumnos/{{$alumno->id}}"method="POST">
-          @method('DELETE')
-          @csrf
-          <button onClick="confirmarDelte(event)" class = "cursor-pointer">
-            <svg class="w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
-                <path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/>
-            </svg>
-       </button>
-       </form>  
-      </td>
-   <button type ="submit">
-            <td>
-        <svg class="w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
-            <path d="M535.6 85.7C513.7 63.8 478.3 63.8 456.4 85.7L432 110.1L529.9 208L554.3 183.6C576.2 161.7 576.2 126.3 554.3 104.4L535.6 85.7zM236.4 305.7C230.3 311.8 225.6 319.3 222.9 327.6L193.3 416.4C190.4 425 192.7 434.5 199.1 441C205.5 447.5 215 449.7 223.7 446.8L312.5 417.2C320.7 414.5 328.2 409.8 334.4 403.7L496 241.9L398.1 144L236.4 305.7zM160 128C107 128 64 171 64 224L64 480C64 533 107 576 160 576L416 576C469 576 512 533 512 480L512 384C512 366.3 497.7 352 480 352C462.3 352 448 366.3 448 384L448 480C448 497.7 433.7 512 416 512L160 512C142.3 512 128 497.7 128 480L128 224C128 206.3 142.3 192 160 192L256 192C273.7 192 288 177.7 288 160C288 142.3 273.7 128 256 128L160 128z"/>
-        </svg>
+          <form action="/alumnos/{{$alumno->id}}/edit" method="GET">
+            @csrf
+            @method("GET")
+          <button type="submit" class="cursor-pointer" >
+            <a href="/alumnos/{{$alumno->id}}/edit">
+          <svg class="h-6 w-6 hover:bg-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+          <path d="M535.6 85.7C513.7 63.8 478.3 63.8 456.4 85.7L432 110.1L529.9 208L554.3 183.6C576.2 161.7 
+          576.2 126.3 554.3 104.4L535.6 85.7zM236.4 305.7C230.3 311.8 225.6 319.3 222.9 327.6L193.3 416.4C190.4 425 
+          192.7 434.5 199.1 441C205.5 447.5 215 449.7 223.7 446.8L312.5 417.2C320.7 414.5 328.2 409.8 334.4 403.7L496 
+          241.9L398.1 144L236.4 305.7zM160 128C107 128 64 171 64 224L64 480C64 533 107 576 160 576L416 576C469 576 512 
+          533 512 480L512 384C512 366.3 497.7 352 480 352C462.3 352 448 366.3 448 384L448 480C448 497.7 433.7 512 416 
+          512L160 512C142.3 512 128 497.7 128 480L128 224C128 206.3 142.3 192 160 192L256 192C273.7 192 288 177.7 288 
+          160C288 142.3 273.7 128 256 128L160 128z"/></svg> </a>
+        </button>
+          </form>
         </td>
-       </button>
-        </form>
-   </tr>
-        @endforeach 
-      </tbody>
-    </table>
-    <script>
-        function confirmarDelte(event) {
-            event.preventDefault();
-           if (confirm("¿Estás seguro de que quieres eliminar este alumno?"))
-           event.target.closest('form').submit();
-        }
+          <td>
+            <form action="/alumnos/{{$alumno->id}}" method="POST">
+            @csrf
+            @method("DELETE")
+              <button onclick="confirmDelete(event)" class="cursor-pointer" >
+            <svg class="h-6 w-6 on-hover:bg-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+           <path d="M232.7 69.9C237.1 56.8 249.3 48 263.1 48L377 48C390.8 48 403 56.8 407.4 69.9L416 96L512 96C529.7 96 
+           544 110.3 544 128C544 145.7 529.7 160 512 160L128 160C110.3 160 96 145.7 96 128C96 110.3 110.3 96 128 96L224 
+           96L232.7 69.9zM128 208L512 208L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 
+           208zM216 272C202.7 272 192 282.7 192 296L192 488C192 501.3 202.7 512 216 512C229.3 512 240 501.3 240 488L240 
+           296C240 282.7 229.3 272 216 272zM320 272C306.7 272 296 282.7 296 296L296 488C296 501.3 306.7 512 320 512C333.3 
+           512 344 501.3 344 488L344 296C344 282.7 333.3 272 320 272zM424 272C410.7 272 400 282.7 400 296L400 488C400 
+           501.3 410.7 512 424 512C437.3 512 448 501.3 448 488L448 296C448 282.7 437.3 272 424 272z"/></svg> 
+          </button>
+          </form>
+        </td>
+      </tr>
+    @endforeach
+</tbody>
+  </table>
+
+  <script>
+    function confirmDelete(event) {
+      event.preventDefault();
+     if (confirm ("¿Seguro que quieres borrar el alumno?"))
+      event.target.closest('form').submit();
+    }
     </script>
-    {{$alumnos->links() }}
-  </div>
+    {{ $alumnos->links() }}
+        @endauth
 </x-layouts.layout>

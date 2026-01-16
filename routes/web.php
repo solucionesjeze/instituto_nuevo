@@ -2,11 +2,14 @@
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\LangController;
+use App\Http\Controllers\SetLanguageController;
 Route::get('/', function () {
     return view('main');
 });
 
+Route::view('/', 'main') ->name('main');
 Route::view("/about", "about");
 
 Route::get('/dashboard', function () {
@@ -21,8 +24,10 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//estas dos puede que se eliminen 
 Route::resource("alumnos", AlumnoController::class) ->middleware('auth');
 Route::get('/alumnos/create', [AlumnoController::class, 'create'])->name('alumnos.create');
 Route::post('/alumnos', [AlumnoController::class, 'store'])->name('alumnos.store');
 Route::resource("proyectos", ProyectoController::class);
+
+
+Route::get('lang/{lang}', SetLanguageController::class)->name('set_lang');

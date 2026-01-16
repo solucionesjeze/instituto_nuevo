@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alumno;
 use App\Http\Requests\StoreAlumnoRequest;
 use App\Http\Requests\UpdateAlumnoRequest;
+
 use Illuminate\Support\Facades\Schema;
 
 class AlumnoController extends Controller
@@ -14,10 +15,10 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        //select * from 
-        $alumnos = Alumno::paginate(5);
+        //selecciona todos los alumnos (select * from alumnos)
+        $alumnos = Alumno::paginate(10);
         $campos = Schema::getColumnListing('alumnos');
-        return view("alumnos.listado", compact("alumnos", "campos"));
+        return view("alumnos.listado", compact("alumnos","campos"));
     }
 
     /**
@@ -25,7 +26,7 @@ class AlumnoController extends Controller
      */
     public function create()
     {
-        return view ("alumnos.create"); 
+        return view("alumnos.create");
     }
 
     /**
@@ -33,9 +34,10 @@ class AlumnoController extends Controller
      */
     public function store(StoreAlumnoRequest $request)
     {
-        $datos_alumnos = request()->input();
+        $datos_alumnos = $request->input();
         Alumno::create($datos_alumnos);
-        return redirect()->route('alumnos.index');
+
+    return redirect()->route('alumnos.index');
     }
 
     /**
@@ -51,7 +53,7 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-      return view("alumnos.edit", compact("alumno"));
+        return view ("alumnos.edit", compact("alumno"));
     }
 
     /**
@@ -59,7 +61,9 @@ class AlumnoController extends Controller
      */
     public function update(UpdateAlumnoRequest $request, Alumno $alumno)
     {
-        //
+        
+        $alumno->update($request->validated());
+        return redirect()->route('alumnos.index');
     }
 
     /**
@@ -67,13 +71,7 @@ class AlumnoController extends Controller
      */
     public function destroy(Alumno $alumno)
     {
-        $alumno -> delete();
+        $alumno->delete();
         return redirect()->route('alumnos.index');
-
-
-        
-      /*  $alumnos = Alumno::all();
-        $campos = Schema::getColumnListing('alumnos');
-        return view("alumnos.listado", compact("alumnos", "campos"));*/
     }
 }

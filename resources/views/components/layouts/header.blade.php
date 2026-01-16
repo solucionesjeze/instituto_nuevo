@@ -2,9 +2,11 @@
 
     <img class="h-17 max-h-full px-3" src="{{asset('./images/logo.png')}}" alt="logo">
 
-    <h1 class="text-blue-800 text-6xl">Gestión de instituto</h1>
+    <h1 class="text-blue-800 text-6xl">{{__('Gestión de instituto')}}</h1>
+
 
     <div class="flex flex-row space-x-2 px-2">
+        <x-layouts.setlang/>
         @guest
         <a href="login">
             <button type="submit" class="btn btn-primary">
@@ -21,15 +23,15 @@
         <span class="text-xl text-blue-900">{{ auth()->user()->name }}</span>
         <form action="logout" method="POST">
             @csrf
-            <input class="btn btn-secondary" type="submit" name="logout">
+        <button class="btn btn-secondary" type="submit" name="logout"> Salir </button>
         </form>
         @role("admin")
-        <a href="">
+        <a href="alumnos">
             <button type="submit" class="btn btn-primary">
                 Administrar
             </button>
         </a>
         @endrole
-        @endauth
+        @endauth 
     </div>
 </header>
